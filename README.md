@@ -1,74 +1,83 @@
-Qt Screen and Video Recorder
+# Qt Screen & Video Recorder
 
-This project is a desktop application built using Qt and FFmpeg to provide both screen recording and screenshot functionality. The application is structured with modular components to handle screen capture, audio capture, file management, configuration, and process control.
+A C++ desktop application demonstrating screen recording, audio capture, and screenshot functionality using Qt and FFmpeg.
 
-Overview
+## Overview
 
-The application uses Qt for the user interface, event handling, and threading, while FFmpeg is used for the actual video and audio encoding. The project includes dedicated managers for each subsystem, ensuring clear separation of responsibilities and easier maintainability.
+This project uses Qt for the user interface and event handling, and FFmpeg for high-performance video and audio processing. The application allows users to:
 
-Key Features
-Screen Recording
+- Record the full screen or a selected region
+- Capture system audio and/or microphone input
+- Take screenshots in various formats
+- Configure recording settings such as resolution, frame rate, and output folder
 
-Records the desktop screen using FFmpeg.
+## Project Structure
 
-Supports customizable FFmpeg parameters.
+QtScreenRecorder/
+├── build/
+├── AudioCaptureEngine.cpp
+├── AudioCaptureEngine.h
+├── CaptureManager.cpp
+├── CaptureManager.h
+├── CMakeLists.txt
+├── ConfigManager.cpp
+├── ConfigManager.h
+├── FFmpegProcess.cpp
+├── FFmpegProcess.h
+├── FileManager.cpp
+├── FileManager.h
+├── HotkeyManager.cpp
+├── HotkeyManager.h
+├── main.cpp
+├── MainWindow.cpp
+├── MainWindow.h
+├── ScreenCaptureEngine.cpp
+└── ScreenCaptureEngine.h
 
-Runs FFmpeg as a managed background process.
+## File Descriptions
 
-Screenshot Capture
+### main.cpp
+Entry point of the application; initializes the UI and starts the main event loop.
 
-Captures still images of the screen.
+### AudioCaptureEngine.cpp / AudioCaptureEngine.h
+Handles audio recording from system and microphone inputs.
 
-Saves screenshots through the FileManager module with organized naming and path handling.
+### CaptureManager.cpp / CaptureManager.h
+Coordinates the capture processes for video and audio.
 
-Audio Capture
+### ConfigManager.cpp / ConfigManager.h
+Manages user-configurable settings such as resolution, frame rate, hotkeys, and output paths.
 
-Provides infrastructure for capturing microphone or system audio through FFmpeg.
+### FFmpegProcess.cpp / FFmpegProcess.h
+Handles video and audio encoding using FFmpeg.
 
-System Hotkeys
+### FileManager.cpp / FileManager.h
+Manages file saving, naming, and organization.
 
-Global hotkeys allow users to start or stop recording and take screenshots without switching windows.
+### HotkeyManager.cpp / HotkeyManager.h
+Registers and manages keyboard shortcuts for recording and screenshots.
 
-Modular Project Structure
+### MainWindow.cpp / MainWindow.h
+Defines the main UI window and links UI actions to backend functionality.
 
-The codebase includes components such as:
+### ScreenCaptureEngine.cpp / ScreenCaptureEngine.h
+Handles screen capture logic and prepares frames for recording.
 
-ScreenCaptureEngine
+### CMakeLists.txt
+CMake configuration file for building the project.
 
-AudioCaptureEngine
+## How to Build and Run
 
-CaptureManager
+```bash
+git clone https://github.com/yourusername/QtScreenRecorder.git
+cd QtScreenRecorder
 
-FileManager
+# Open the project in Qt Creator and build
+# Or build using CMake
+mkdir build
+cd build
+cmake ..
+cmake --build .
 
-HotkeyManager
-
-ConfigManager
-
-FFmpegProcess
-
-MainWindow
-
-Each module is responsible for a distinct part of the application, resulting in a clean and extensible architecture.
-
-Technologies Used
-
-Qt 6 for UI, timers, signals/slots, and system integration
-
-FFmpeg for video and audio encoding
-
-**C++**17 for the application logic and structure
-
-Build Instructions
-
-Ensure FFmpeg is installed and added to your system path.
-
-Open the project in Qt Creator or build using CMake.
-
-Configure any necessary FFmpeg paths inside the configuration module.
-
-Build and run the application.
-
-Purpose
-
-This project was created to demonstrate skills in C++, Qt application development, system-level screen capture, and integrating external tools such as FFmpeg. It showcases an understanding of modular design, event-driven programming, and multimedia processing.
+# Run the application
+./QtScreenRecorder
