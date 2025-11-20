@@ -1,15 +1,15 @@
 # Qt Screen & Video Recorder
 
-A C++ desktop application demonstrating screen recording, audio capture, and screenshot functionality using Qt and FFmpeg.
+A C++ desktop application for screen recording, audio capture, and screenshots using **Qt** and **FFmpeg**.
 
 ## Overview
 
-This project uses Qt for the user interface and event handling, and FFmpeg for high-performance video and audio processing. The application allows users to:
+This project uses Qt for the user interface and event handling, and FFmpeg for high-performance video and audio processing. It allows users to:
 
-- Record the full screen or a selected region
-- Capture system audio and/or microphone input
-- Take screenshots in various formats
-- Configure recording settings such as resolution, frame rate, and output folder
+- Record the full screen or a selected region  
+- Capture system audio and/or microphone input  
+- Take screenshots in multiple formats  
+- Configure recording settings such as resolution, frame rate, and output folder  
 
 ## Project Structure
 
@@ -34,50 +34,51 @@ QtScreenRecorder/
 ├── ScreenCaptureEngine.cpp
 └── ScreenCaptureEngine.h
 
+
 ## File Descriptions
 
-### main.cpp
-Entry point of the application; initializes the UI and starts the main event loop.
+- **main.cpp**  
+  Entry point; initializes the UI and starts the event loop.
 
-### AudioCaptureEngine.cpp / AudioCaptureEngine.h
-Handles audio recording from system and microphone inputs.
+- **AudioCaptureEngine.\***  
+  Handles audio recording from system and microphone inputs.
 
-### CaptureManager.cpp / CaptureManager.h
-Coordinates the capture processes for video and audio.
+- **CaptureManager.\***  
+  Coordinates video and audio capture processes.
 
-### ConfigManager.cpp / ConfigManager.h
-Manages user-configurable settings such as resolution, frame rate, hotkeys, and output paths.
+- **ConfigManager.\***  
+  Manages user settings such as resolution, frame rate, hotkeys, and output paths.
 
-### FFmpegProcess.cpp / FFmpegProcess.h
-Handles video and audio encoding using FFmpeg.
+- **FFmpegProcess.\***  
+  Handles video and audio encoding with FFmpeg.
 
-### FileManager.cpp / FileManager.h
-Manages file saving, naming, and organization.
+- **FileManager.\***  
+  Manages saving and organizing output files.
 
-### HotkeyManager.cpp / HotkeyManager.h
-Registers and manages keyboard shortcuts for recording and screenshots.
+- **HotkeyManager.\***  
+  Registers and manages keyboard shortcuts.
 
-### MainWindow.cpp / MainWindow.h
-Defines the main UI window and links UI actions to backend functionality.
+- **MainWindow.\***  
+  Main UI window connecting actions to backend functionality.
 
-### ScreenCaptureEngine.cpp / ScreenCaptureEngine.h
-Handles screen capture logic and prepares frames for recording.
+- **ScreenCaptureEngine.\***  
+  Handles screen capture logic and prepares frames for recording.
 
-### CMakeLists.txt
-CMake configuration file for building the project.
+- **CMakeLists.txt**  
+  Build configuration file.
 
-## How to Build and Run
+## Prerequisites
 
-```bash
-git clone https://github.com/yourusername/QtScreenRecorder.git
-cd QtScreenRecorder
+- **Qt 5.x or 6.x** (with Qt Widgets and Multimedia modules)  
+- **CMake 3.16+**  
+- **FFmpeg** (installed and added to system PATH)  
+- C++17 compatible compiler (GCC, Clang, or MSVC)
 
-# Open the project in Qt Creator and build
-# Or build using CMake
-mkdir build
-cd build
-cmake ..
-cmake --build .
+### FFmpeg Setup
 
-# Run the application
+- **Windows:** Download FFmpeg static build and add the `bin` folder to PATH  
+- **macOS:** Install via Homebrew  
+  ```bash
+  brew install ffmpeg
+
 ./QtScreenRecorder
