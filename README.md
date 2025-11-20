@@ -1,222 +1,74 @@
-# Replay Recorder & Screenshot Tool
+Qt Screen and Video Recorder
 
-A lightweight Windows application that captures **screenshots** and **instant 30120 second gameplay replays**, even in **exclusive fullscreen** games. Designed as a customizable, moddable alternative to ShadowPlay and Xbox Game Bar.
+This project is a desktop application built using Qt and FFmpeg to provide both screen recording and screenshot functionality. The application is structured with modular components to handle screen capture, audio capture, file management, configuration, and process control.
 
----
+Overview
 
-## Features
+The application uses Qt for the user interface, event handling, and threading, while FFmpeg is used for the actual video and audio encoding. The project includes dedicated managers for each subsystem, ensuring clear separation of responsibilities and easier maintainability.
 
-### 1. Rolling Replay Buffer
+Key Features
+Screen Recording
 
-* Continuously captures frames + audio while running.
-* Stores only the **last X seconds** (default: 30s).
-* Press the hotkey  instantly saves the last recorded segment.
-* Supports buffer durations:
+Records the desktop screen using FFmpeg.
 
-  * 10s
-  * 15s
-  * 30s
-  * 60s
-  * 120s
+Supports customizable FFmpeg parameters.
 
-### 2. Screenshot Capture
+Runs FFmpeg as a managed background process.
 
-* Works in exclusive fullscreen and borderless modes.
-* Customizable global hotkey.
-* Supports PNG, JPEG, WEBP, BMP.
-* Auto-organizes screenshots per-game.
+Screenshot Capture
 
-### 3. Works in All Games
+Captures still images of the screen.
 
-Uses Windows-native APIs:
+Saves screenshots through the FileManager module with organized naming and path handling.
 
-* **DXGI Desktop Duplication API**  lossless/high-performance frame capture.
-* **WASAPI Loopback**  system audio capture.
+Audio Capture
 
-Supports: DirectX9/11/12, Vulkan, OpenGL, Exclusive Fullscreen.
+Provides infrastructure for capturing microphone or system audio through FFmpeg.
 
-### 4. Lightweight Video Encoding
+System Hotkeys
 
-Encodes replay clips using:
+Global hotkeys allow users to start or stop recording and take screenshots without switching windows.
 
-* **FFmpeg** (required)
-* Optional GPU encoders:
+Modular Project Structure
 
-  * NVIDIA NVENC
-  * Intel QuickSync
-  * AMD AMF
+The codebase includes components such as:
 
-Output formats:
+ScreenCaptureEngine
 
-* MP4 (H.264)
-* WEBM (VP9)
-* MKV
+AudioCaptureEngine
 
-### 5. Global Hotkeys
+CaptureManager
 
-* Save replay
-* Take screenshot
-* Start/stop full recording
-* Bookmark clip moments
+FileManager
 
-### 6. Storage Management
+HotkeyManager
 
-* Auto-delete older clips.
-* User-defined disk cap (e.g., keep only last 5GB).
-* Auto-compress older videos.
+ConfigManager
 
-### 7. Per-Game Profiles
+FFmpegProcess
 
-Each game can have unique settings:
+MainWindow
 
-* Capture resolution
-* Framerate (30/60/90+)
-* Bitrate
-* Storage paths
-* Screenshot format
+Each module is responsible for a distinct part of the application, resulting in a clean and extensible architecture.
 
----
+Technologies Used
 
-## How It Works
+Qt 6 for UI, timers, signals/slots, and system integration
 
-### 1. Real-Time Capture Loop
+FFmpeg for video and audio encoding
 
-The app:
+**C++**17 for the application logic and structure
 
-* Captures frames at target FPS
-* Captures desktop audio as PCM
-* Stores both into an in-memory **circular buffer** (ring buffer)
+Build Instructions
 
-Example buffer sizes:
+Ensure FFmpeg is installed and added to your system path.
 
-* 60 FPS  30 seconds  1800 frames
-* Oldest frames automatically overwritten
+Open the project in Qt Creator or build using CMake.
 
-### 2. Saving a Clip
+Configure any necessary FFmpeg paths inside the configuration module.
 
-When the hotkey is pressed:
+Build and run the application.
 
-1. Freeze the buffer
-2. Send frames + audio to FFmpeg
-3. FFmpeg outputs the video file
-4. Resume capture immediately
+Purpose
 
-Fast, seamless, and low overhead.
-
----
-
-## Estimated Resource Usage
-
-### Raw frame size (1080p): ~6 MB
-
-* 1920  1080  3 bytes
-
-### Uncompressed 30s buffer: ~10.8 GB (not feasible)
-
-### Optimized buffer with lightweight compression:
-
-* MJPEG or YUV422 reduces usage to **12 GB** for 1080p60.
-
-### GPU offloading (optional):
-
-* NVENC reduces CPU load significantly.
-
----
-
-## Optional Features
-
-* Minimal overlay displaying: "Replay Buffer Active"
-* Screenshot + last-5s replay combo
-* Bookmark tags for naming clips
-* Auto-generate folders per game
-
----
-
-## Tech Stack
-
-**Language:** C++ or C# (with C++ interop)
-
-**Core APIs:**
-
-* DXGI Desktop Duplication (frame capture)
-* WASAPI Loopback (audio capture)
-* RawInput API (hotkeys)
-
-**Encoding:**
-
-* FFmpeg libraries (required)
-* Optional NVENC/AMF/QuickSync
-
-**UI:**
-
-* WinUI / WPF / Qt
-
-**Database:**
-
-* SQLite for clip history
-
----
-
-## Project Structure 
-
-```
-ReplayRecorder/
-
- src/
-    capture/
-       FrameCapture.cpp
-       AudioCapture.cpp
-       DesktopDuplication.cpp
-   
-    buffer/
-       CircularBuffer.cpp
-       FrameCompressor.cpp
-   
-    encode/
-       FFmpegEncoder.cpp
-       EncoderConfig.cpp
-   
-    ui/
-       MainWindow.xaml
-       Overlay.cpp
-   
-    utils/
-       Hotkeys.cpp
-       Settings.cpp
-       GameDetection.cpp
-
- assets/
- docs/
- README.md
-```
-
----
-
-## Building the MVP
-
-1. Implement DXGI frame capture
-2. Add WASAPI loopback audio
-3. Create circular buffer
-4. Add clip saving to FFmpeg
-5. Add hotkey system
-6. Add simple UI
-
-After MVP, add:
-
-* storage management
-* per-game profiles
-* screenshot tools
-
----
-
-## Requirements
-
-* Windows 10/11
-* FFmpeg (bundled or dynamic)
-* GPU recommended (optional NVENC)
-
----
-
-## License
-
-MIT (recommended for open-source)
+This project was created to demonstrate skills in C++, Qt application development, system-level screen capture, and integrating external tools such as FFmpeg. It showcases an understanding of modular design, event-driven programming, and multimedia processing.
