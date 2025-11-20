@@ -12,7 +12,7 @@ This project uses Qt for the user interface and event handling, and FFmpeg for h
 - Configure recording settings such as resolution, frame rate, and output folder  
 
 ## Project Structure
-
+```
 QtScreenRecorder/
 ├── build/
 ├── AudioCaptureEngine.cpp
@@ -33,6 +33,7 @@ QtScreenRecorder/
 ├── MainWindow.h
 ├── ScreenCaptureEngine.cpp
 └── ScreenCaptureEngine.h
+```
 
 
 ## File Descriptions
